@@ -8,9 +8,7 @@
 	- [1.0 Data Structures](#10-data-structures)
 		- [1.1 Overview](#11-overview)
 		- [1.2 Vector `std::vector`](#12-vector-stdvector)
-		- [1.3 Deque `std::deque`](#13-deque-stddeque)
-		- [1.4 List `std::list` and `std::forward_list`](#14-list-stdlist-and-stdforward_list)
-		- [1.5 Map `std::map` and `std::unordered_map`](#15-map-stdmap-and-stdunordered_map)
+		- [1.3 Map `std::map` and `std::unordered_map`](#15-map-stdmap-and-stdunordered_map)
 		- [1.6 Set `std::set`](#16-set-stdset)
 		- [1.7 Stack `std::stack`](#17-stack-stdstack)
 		- [1.8 Queue `std::queue`](#18-queue-stdqueue)
@@ -113,11 +111,88 @@ for (auto it = vec.begin(); it != vec.end(); ++it) {
 }
 ```
 
+-------------------------------------------------------
+### 1.3 Map `std::map` and `std::unordered_map`
+
+**Notes**
+* Typically ordered maps (`std::map`) are slower than unordered maps (`std::unordered_map`)
+* Maps are typically implemented as *binary search trees*
+* `std::map`
+    * Ordered map
+* `std::unordered_map`
+    * Hash table
+
+**Time Complexity**
+
+**`std::map`**
+
+| Operation           | Time Complexity |
+|---------------------|-----------------|
+| Insert              |     `O(log(n))` |
+| Access by Key       |     `O(log(n))` |
+| Remove by Key       |     `O(log(n))` |
+| Find/Remove Value   |     `O(log(n))` |
+
+**`std::unordered_map`**
+
+| Operation           | Time Complexity |
+|---------------------|-----------------|
+| Insert              |          `O(1)` |
+| Access by Key       |          `O(1)` |
+| Remove by Key       |          `O(1)` |
+| Find/Remove Value   |              -- |
 
 
+**Example Code**
+```c++
+#include <iostream>
+#include <map>
+using namespace std;
+
+map<int, string> m;  // Declaring a map of int keys and string values
+unordered_map<int, string> um;  // Declaring an unordered_map of int keys and string values
+
+//---------------------------------
+// General Operations
+//---------------------------------
+
+// Insert
+m.insert(make_pair(1, "One"));
+m[2] = "Two";  // Using [] operator for insertion
+
+// Access by key
+cout << m.at(1);  // Output: One
+cout << m[2];      // Output: Two
+
+// Size
+int size = m.size();
+
+// Empty
+cout << m.empty();  // Check if map is empty
 
 
+// Iterate
+// Iterating through the map
+for (const auto& pair : m) {
+  cout << pair.first << ": " << pair.second << endl;
+}
 
+// Remove by key
+m.erase("key");
+
+// Clear
+m.clear();
+
+//---------------------------------
+// Container-Specific Operations
+//---------------------------------
+
+// Find if an element exists by key
+bool exists = (m.find("key") != m.end());
+
+// Count the number of elements with a certain key
+unsigned int count = m.count("key");
+```
 
 
 
