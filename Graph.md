@@ -2,8 +2,7 @@
 
 ## Table of Contents
 
-- [1 Overview](#1-overview)
-- [2 Traversal Algorithms](#2-traversal-algorithms)
+  - [2.0 Overview](#20-overview)
   - [2.1 Breadth-First Search](#21-breadth-first-search)
   - [2.2 Depth-First Search](#22-depth-first-search)
   - [2.3 Topological Sort](#23-topological-sort)
@@ -18,7 +17,7 @@
 
 
 
-### 1 Overview
+#### 2.0 Overview
 
 **Types of Graphs**
 - Directed and Undirected Graphs
@@ -34,7 +33,7 @@
 
 -----
 
-### 2 Traversal Algorithms
+
 
 #### 2.1 Breadth-First Search
 BFS explores all the neighbors of a node before moving on to the next level.
