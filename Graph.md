@@ -9,6 +9,11 @@
   - [2.3 Topological Sort](#23-topological-sort)
   - [2.4 Shortest Path](#24-shortest-path)
   - [2.5 Dijkstra Algorithm](#25-dijkstra-algorithm)
+  - [2.6 Bellman Ford Algorithm](#26-bellman-ford-algorithm)
+  - [2.7 Floyd Warshal Algorithm](#27-floyd-warshal-algorithm)
+  - [2.8 Prim's Algorithm](#28-prims-algorithm)
+  - [2.9 Disjoint Set](#29-disjoint-set)
+  - [2.10 Kruskal's Algorithm](#210-kruskals-algorithm)
 
 
 
@@ -295,6 +300,31 @@ public:
 
 #### 2.5 Dijkstra Algorithm
 
+---
 
 
+#### 2.6 Bellman Ford Algorithm
 
+---
+
+
+#### 2.7 Floyd Warshal Algorithm
+
+---
+
+
+#### 2.8 Prim's Algorithm
+
+---
+
+
+#### 2.9 Disjoint Set
+
+
+---
+
+
+#### 2.10 Kruskal's Algorithm
+
+
+---
