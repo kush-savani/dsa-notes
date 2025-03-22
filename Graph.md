@@ -17,7 +17,7 @@
 
 
 
-#### 2.0 Overview
+### 2.0 Overview
 
 **Types of Graphs**
 - Directed and Undirected Graphs
@@ -35,7 +35,7 @@
 
 
 
-#### 2.1 Breadth-First Search
+### 2.1 Breadth-First Search
 BFS explores all the neighbors of a node before moving on to the next level.
 
 **Data Structures**
@@ -102,7 +102,7 @@ class Solution {
 
 -----
 
-#### 2.2 Depth-First Search
+### 2.2 Depth-First Search
 DFS explores as far as possible along each branch before backtracking.
 
 **Data Structures**
@@ -150,7 +150,7 @@ class Solution {
 
 -----
 
-#### 2.3 Topological Sort
+### 2.3 Topological Sort
 Topological Sort (or Topological Ordering) of a directed graph is a linear ordering of its vertices such that for every directed edge u -> v, vertex u comes before vertex v in the ordering.
 
 > NOTE: Topological sorting is only possible on Directed Acyclic Graphs (DAGs). If a graph has a cycle, it is impossible to produce a topological ordering.
@@ -243,7 +243,7 @@ vector<int> topologicalSort(int V, vector<vector<int>>& adj) {
 
 ---
 
-#### 2.4 Shortest Path
+### 2.4 Shortest Path
 
 - BFS will be used for find shortest path in Undirected or Directed Graphs. 
 
@@ -297,33 +297,225 @@ public:
 
 ----
 
-#### 2.5 Dijkstra Algorithm
+### 2.5 Dijkstra Algorithm
+
+**Applications**
+- **Routing and Navigation Systems:**
+Dijkstra’s algorithm is used in GPS systems to find the shortest route between two points.
+
+- **Network Routing Protocols:**
+In computer networks, Dijkstra’s algorithm is used in protocols like OSPF (Open Shortest Path First) for determining the best path for packet delivery.
+
+- **Optimization Problems:**
+It’s used in various optimization problems like minimum-cost paths, project scheduling, and planning.
+
+
+**Algorithm Steps:**
+
+- For the current node, consider all of its unvisited neighbors and calculate their tentative distances from the source node.
+- Compare the newly calculated tentative distance to the current assigned value and assign the smaller one. For example, if node A is marked with a distance of 6, and the distance from A to a neighbor B is 2, then the distance to B through A will be 6 + 2 = 8, which is smaller than the current distance, so we update the distance of B.
+- Once all the neighbors have been considered, mark the current node as visited. A visited node will not be checked again.
+- Select the unvisited node with the smallest tentative distance, and set it as the new current node.
+- Repeat steps 1-4 until all nodes are visited.
+
+```
+
+
+// User Function Template
+class Solution {
+  public:
+    // Function to find the shortest distance of all the vertices
+    // from the source vertex src.
+    vector<int> dijkstra(vector<vector<pair<int, int>>> &adj, int src) {
+        // Code here
+        int nodes = adj.size();
+        set<pair<int, int>> st; //(distance, node)
+        vector<int> distance(nodes, INT_MAX);
+        
+        //Initailizations
+        st.insert({0, src});
+        distance[src] = 0;
+        
+        while(!st.empty()) {
+            auto top = *(st.begin());
+
+            int current_distance = top.first;
+            int current_node = top.second;
+            st.erase(st.begin());
+            
+            for(auto adjNode: adj[node]) {
+                int node = neighbor[0];
+                int weight = neighbor[1];
+
+                if(distance[node] > current_distance + weight) {
+                  if(distance[node] != INT_MAX){
+                        st.erase({distance[node], node});
+                    }
+                    distance[node] = current_distance + weight;
+                    st.insert({distance[node], adjNode.first});
+                }
+            }
+        }
+        
+        return dist;
+    }
+};
+
+
+```
+
+**Time Complexity:**
+- Using a Simple Array: O(V²), where V is the number of vertices.
+- Using a Min-Heap (Priority Queue): O((V + E) * log V), where E is the number of edges.
+  - With a binary heap, the time complexity improves to O((V + E) * log V), where you efficiently extract the minimum distance node.
+ 
+**Limitations:**
+- **Non-negative Edge Weights:** Dijkstra’s algorithm cannot handle graphs with negative edge weights. For graphs with negative weights, the Bellman-Ford Algorithm is a better choice.
+- **Efficiency with Dense Graphs:** Dijkstra’s algorithm can be slower in dense graphs if a simple array or list is used for priority queue management.
+
+---
+
+### 2.6 Bellman Ford Algorithm
+
+This algorithm overcomes Dijkstra's limitation on negative edge weights.
+
+Time Complexity: O(V * E), where V is the number of vertices and E is the number of edges.
+
+```
+
+class Solution {
+  public:
+    /*  Function to implement Bellman Ford
+     *   edges: vector of vectors which represents the graph
+     *   src: source vertex
+     *   V: number of vertices
+     */
+    vector<int> bellmanFord(int V, vector<vector<int>>& edges, int src) {
+        # Step 1: Initialize distances
+        vector<int> distance(V, 1e8);
+        distance[src] = 0;
+
+        # Step 2: Relax all edges V-1 times
+        for(int i = 0; i < V-1; i++) {
+            for(auto it: edges) {
+                int u = it[0];
+                int v = it[1];
+                int wt = it[2];
+                if(distance[u] != 1e8 && distance[u] + wt < distance[v]) {
+                    distance[v] = distance[u] + wt;
+                }
+            }
+        }
+
+        # Step 3: Check for negative weight cycles
+        for(auto it: edges) {
+                int u = it[0];
+                int v = it[1];
+                int wt = it[2];
+                if(distance[u] != 1e8 && distance[u] + wt < distance[v]) {
+                    // distance[v] = distance[u] + wt;
+                    return {-1};
+                }
+            }
+
+        # Return the shortest distances
+        return distance;
+    }
+};
+
+
+```
+
+**Negative Weight Cycle Detection:**
+
+- After completing the relaxation for V-1 iterations, check all edges again to see if any distance can still be updated.
+- If you find an edge that can still be relaxed, it means there is a negative weight cycle in the graph.
+
+**Practice**
+- https://www.geeksforgeeks.org/problems/distance-from-the-source-bellman-ford-algorithm/1
+- 
+
 
 ---
 
 
-#### 2.6 Bellman Ford Algorithm
+### 2.7 Floyd Warshal Algorithm
+
+This algorithm finds the shortest paths between all pairs of vertices in a weighted graph (both directed and undirected) and works efficiently even if the graph contains negative weight edges (but no negative weight cycles).
+
+
+
+**Application:**
+- All-Pairs Shortest Path: The Floyd-Warshall algorithm calculates the shortest path from every vertex to every other vertex.
+- Intermediate Vertices: The idea is to iteratively try to improve the shortest path by considering if an intermediate vertex can offer a shorter path.
+
+
+**Iterative Improvement:** 
+The triple nested loop runs for each vertex as an intermediate vertex k and updates the shortest distance from i to j through vertex k.
+
+```
+class Solution {
+  public:
+    void shortestDistance(vector<vector<int>>& mat) {
+        // Code here
+        int n = mat.size();
+        for(int i = 0; i < n; i++) {
+            for(int j = 0; j < n; j++) {
+                if(mat[i][j] == -1) mat[i][j] = 1e7;
+
+                # Set the distance to 0 for each vertex to itself
+                if(i == j) mat[i][j] = 0;
+            }
+        }
+
+        # Main loop to calculate shortest paths
+        for(int k = 0; k < n; k++) { # Intermediate vertex
+            for(int i = 0; i < n; i++) { # Start vertex
+                for(int j = 0; j < n; j++) { # End vertex
+                    mat[i][j] = min(mat[i][j], mat[i][k] + mat[k][j]);
+                }
+            }
+        }
+        
+        
+        
+        
+        for(int i = 0; i < n; i++) {
+            for(int j = 0; j < n; j++) {
+                if(mat[i][j] == 1e7) mat[i][j] = -1;
+            }
+        }
+    }
+};
+
+```
+
+- Time Complexity: O(V³), where V is the number of vertices in the graph.
+- Space Complexity: O(V²), as we need to store a distance matrix.
+
+
+**Advantages:**
+
+- All-Pairs Shortest Path: Unlike Dijkstra’s algorithm (which is single-source), Floyd-Warshall provides the shortest path between all pairs of vertices.
+- Works with Negative Weights: It can handle negative weights, making it more versatile than algorithms like Dijkstra’s, which require non-negative weights.
+
+
 
 ---
 
 
-#### 2.7 Floyd Warshal Algorithm
+### 2.8 Prim's Algorithm
 
 ---
 
 
-#### 2.8 Prim's Algorithm
-
----
-
-
-#### 2.9 Disjoint Set
+### 2.9 Disjoint Set
 
 
 ---
 
 
-#### 2.10 Kruskal's Algorithm
+### 2.10 Kruskal's Algorithm
 
 
 ---
