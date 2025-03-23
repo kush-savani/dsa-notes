@@ -100,6 +100,9 @@ class Solution {
 };
 ```
 
+**Practice**
+- https://leetcode.com/problems/all-ancestors-of-a-node-in-a-directed-acyclic-graph/description/
+
 -----
 
 ### 2.2 Depth-First Search
