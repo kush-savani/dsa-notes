@@ -34,6 +34,80 @@ Ex: 1. Single database object shared by different parts of the program.
 
 ### Observer
 
+```
+interface IObserver {
+    update: () => void;
+}
+interface IObservable {
+    observerList: IObserver[];
+    qty: number;
+    item: string;
+    add: (obj: IObserver) => void;
+    remove: (obj: IObserver) => void;
+    notifyMe: () => void;
+    setData: (data: number) => void;
+    getData: () => string;
+}
+class Observable implements IObservable {
+    observerList: IObserver[] = [];
+    qty = 0;
+    item = '';
+    constructor(item: string) {this.item = item}
+
+    add(obj: IObserver) {this.observerList.push(obj);}
+
+    remove(obj: IObserver) { this.observerList.pop();}
+
+    notifyMe() {
+        this.observerList.forEach(obj => obj.update());
+    }
+
+    setData(data: number) {
+        if(this.qty === 0) {
+            this.notifyMe();
+        }
+        this.qty = data;
+    }
+
+    getData() {
+        return this.item;
+    }
+}
+
+class MobileObserver implements IObserver {
+    observable: Observable;
+    constructor(obj: Observable) {
+        this.observable = obj;
+    }
+    update() {
+        console.log('Notifing for' + this.observable.getData() + ' on mobile');
+    }
+}
+
+class EmailObserver implements IObserver {
+    observable: Observable;
+    constructor(obj: Observable) {
+        this.observable = obj;
+    }
+    update() {
+        console.log('Notifing for' + this.observable.getData() + ' on email');
+    }
+}
+
+const iphone = new Observable('iphone');
+// const laptop = new Observable('laptop');
+
+const user1 = new MobileObserver(iphone);
+const user2 = new EmailObserver(iphone);
+const user3 = new MobileObserver(iphone);
+
+iphone.add(user1);
+iphone.add(user2);
+iphone.add(user3);
+
+iphone.setData(2);
+```
+
 ## Structural patterns 
 
 ### Decorator 
