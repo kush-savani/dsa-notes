@@ -1,10 +1,10 @@
 
 # SOLID
-S: Single responsibility principles (Only one reasone to change)
-O: Open/Close principles  (Open for extenstion, close for modification)
-L: Liskov substitution principles (should extend functioality of parent class, not narrow it down)
-I: Interface segmented principle (add only nessasery method in interface)
-D:
+- S: Single responsibility principles (Only one reasone to change)
+- O: Open/Close principles  (Open for extenstion, close for modification)
+- L: Liskov substitution principles (should extend functioality of parent class, not narrow it down)
+- I: Interface segmented principle (add only nessasery method in interface, devide interface in segment)
+- D: Depennacy inversion principle (depend on interface, not on class)
 
 # Types 
 1. Creational patterns  
@@ -26,4 +26,62 @@ Ex: 1. Single database object shared by different parts of the program.
 ### Factory design
 <img width="470" alt="Screenshot 2025-04-23 at 10 07 05 AM" src="https://github.com/user-attachments/assets/da61d255-c72f-4be5-9d16-39670b7b75a3" />
 <img width="1305" alt="Screenshot 2025-04-23 at 9 47 39 AM" src="https://github.com/user-attachments/assets/4b09036c-4ec3-46ad-9d36-4da23d6555cd" />
+
+## Behavioral patterns 
+
+### Strategy 
+
+
+### Observer
+
+## Structural patterns 
+
+### Decorator 
+```
+   
+   abstract class BasePizza {
+	public abstract cost(): number;
+}
+
+abstract class Toping extends BasePizza {}
+
+class MargaritaPizaa extends BasePizza {
+	override cost(): number {
+		return 200;
+	}
+}
+
+class FarmhousePizaa extends BasePizza {
+	override cost(): number {
+		return 200;
+	}
+}
+
+class ExtraChess extends Toping {
+	basePizaa: BasePizza;
+	constructor(base: BasePizza) {
+		super();
+		this.basePizaa = base;
+	}
+	cost() {
+		return this.basePizaa.cost() + 20;
+	}
+}
+
+class Mashrooms extends Toping {
+	basePizaa: BasePizza;
+	constructor(base: BasePizza) {
+		super();
+		this.basePizaa = base;
+	}
+	cost() {
+		return this.basePizaa.cost() + 40;
+	}
+}
+
+
+const pizza = new Mashrooms(new ExtraChess(new MargaritaPizaa()));
+
+console.log('Price: ', pizza.cost())
+```
 
