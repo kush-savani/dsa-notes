@@ -1,4 +1,10 @@
 
+# SOLID
+S: Single responsibility principles (Only one reasone to change)
+O: Open/Close principles  (Open for extenstion, close for modification)
+L: Liskov substitution principles (should extend functioality of parent class, not narrow it down)
+I: Interface segmented principle (add only nessasery method in interface)
+D:
 
 # Types 
 1. Creational patterns  
