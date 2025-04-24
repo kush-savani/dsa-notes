@@ -30,9 +30,115 @@ Ref: https://refactoring.guru/design-patterns/catalog
 <img width="470" alt="Screenshot 2025-04-23 at 10 07 05 AM" src="https://github.com/user-attachments/assets/da61d255-c72f-4be5-9d16-39670b7b75a3" />
 <img width="1305" alt="Screenshot 2025-04-23 at 9 47 39 AM" src="https://github.com/user-attachments/assets/4b09036c-4ec3-46ad-9d36-4da23d6555cd" />
 
+```
+// 1. Product Interface
+interface Notification {
+    send(message: string): void;
+}
+
+// 2. Concrete Products
+class EmailNotification implements Notification {
+    send(message: string): void {
+        console.log(`Sending EMAIL: ${message}`);
+    }
+}
+
+class SMSNotification implements Notification {
+    send(message: string): void {
+        console.log(`Sending SMS: ${message}`);
+    }
+}
+
+class PushNotification implements Notification {
+    send(message: string): void {
+        console.log(`Sending PUSH notification: ${message}`);
+    }
+}
+
+// 3. Factory
+class NotificationFactory {
+    static createNotification(type: string): Notification {
+        switch (type.toLowerCase()) {
+            case "email":
+                return new EmailNotification();
+            case "sms":
+                return new SMSNotification();
+            case "push":
+                return new PushNotification();
+            default:
+                throw new Error("Unsupported notification type");
+        }
+    }
+}
+
+// 4. Usage
+const notification1 = NotificationFactory.createNotification("email");
+notification1.send("Welcome to our service!");
+
+const notification2 = NotificationFactory.createNotification("sms");
+notification2.send("Your OTP is 123456");
+
+const notification3 = NotificationFactory.createNotification("push");
+notification3.send("You have a new message");
+```
+
 ## Behavioral patterns
 
 ### Strategy
+
+```
+// 1. Strategy Interface
+interface PaymentStrategy {
+    pay(amount: number): void;
+}
+
+// 2. Concrete Strategies
+class CreditCardPayment implements PaymentStrategy {
+    pay(amount: number): void {
+        console.log(`Paid $${amount} using Credit Card.`);
+    }
+}
+
+class PayPalPayment implements PaymentStrategy {
+    pay(amount: number): void {
+        console.log(`Paid $${amount} using PayPal.`);
+    }
+}
+
+class CryptoPayment implements PaymentStrategy {
+    pay(amount: number): void {
+        console.log(`Paid $${amount} using Crypto.`);
+    }
+}
+
+// 3. Context
+class PaymentContext {
+    private strategy: PaymentStrategy;
+
+    constructor(strategy: PaymentStrategy) {
+        this.strategy = strategy;
+    }
+
+    setStrategy(strategy: PaymentStrategy) {
+        this.strategy = strategy;
+    }
+
+    processPayment(amount: number) {
+        this.strategy.pay(amount);
+    }
+}
+
+// 4. Usage
+const context = new PaymentContext(new CreditCardPayment());
+context.processPayment(100); // Paid $100 using Credit Card.
+
+context.setStrategy(new PayPalPayment());
+context.processPayment(50);  // Paid $50 using PayPal.
+
+context.setStrategy(new CryptoPayment());
+context.processPayment(25);  // Paid $25 using Crypto.
+
+```
 
 ### Observer
 
