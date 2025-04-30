@@ -2,7 +2,7 @@
 
 ## Table of Contents
 
-- [1.1 TicTacToeGame](#11-TicTacToeGame)
+- [1.1 TicTacToeGame](#1-tictactoegame)
 
 
 ### 1 TicTacToeGame
