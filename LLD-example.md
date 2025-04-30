@@ -10,7 +10,8 @@ Design Tic-Tac-Toc game. With multiple player, dynamic and multiple sign.
 
 <details>
   <summary>Tic-Tac-Toc</summary>
-  ```js
+  
+    ```js
   
     enum PicesType {
       X = "X",
@@ -181,6 +182,6 @@ Design Tic-Tac-Toc game. With multiple player, dynamic and multiple sign.
     ]);
     game.startGame();
 
-  ```
+    ```
 
 </details>
